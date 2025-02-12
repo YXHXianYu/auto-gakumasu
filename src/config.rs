@@ -21,6 +21,8 @@ pub struct Config {
     pub scale_y: f64,
 }
 
+const ENABLE_SAVE_CONFIG: bool = false;
+
 impl Default for Config {
     fn default() -> Self {
         Config {
@@ -56,6 +58,11 @@ impl Config {
     }
 
     pub fn save(&self) -> Result<(), Box<dyn std::error::Error>> {
+
+        if !ENABLE_SAVE_CONFIG {
+            return Ok(());
+        }
+
         let config_path = "config.json";
         let config_str = serde_json::to_string_pretty(self)?;
         fs::write(config_path, config_str)?;
