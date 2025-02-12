@@ -21,8 +21,6 @@ pub fn click(x: u32, y: u32, wait_time: f64) {
         .expect("Failed to click screen.");
 
     sleep(wait_time);
-
-    adb_println!("Clicked.");
 }
 
 pub fn swipe_scaled(x1: u32, y1: u32, x2: u32, y2: u32, wait_time: f64) {
@@ -45,6 +43,4 @@ pub fn swipe(x1: u32, y1: u32, x2: u32, y2: u32, wait_time: f64) {
         .expect("Failed to swipe.");
     
     sleep(wait_time);
-
-    adb_println!("Swiped.");
 }

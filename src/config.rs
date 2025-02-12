@@ -32,7 +32,7 @@ impl Default for Config {
             wait_time: 2.0,
 
             wait_time_start_emulator: 40.0,
-            wait_time_start_game_1: 30.0,
+            wait_time_start_game_1: 40.0,
             wait_time_start_game_2: 30.0,
 
             scale_x: 1.94,

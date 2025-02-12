@@ -1,4 +1,5 @@
-pub use crate::prelude::*;
+use std::io;
+use crate::prelude::*;
 use crate::task_println;
 
 pub fn daily_task() {
@@ -17,11 +18,41 @@ pub fn do_daily_task() {
     get_task_rewards();
     get_pass_rewards();
 
-    back_to_main_menu();
+    try_to_participate_in_competition();
+
     // end_emulator();
 }
 
+pub fn try_to_participate_in_competition() {
+    task_println!("Trying to join competition.");
+
+    click_scaled(380, 890, get_config().wait_time);
+
+    // user enter y/[n] to continue
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    let input = input.trim();
+
+    click_scaled(277, 905, get_config().wait_time);
+
+    if input == "y" {
+        task_println!("Joining competition.");
+        participate_in_competition();
+    } else {
+        task_println!("Skip joining competition.");
+    }
+}
+
+pub fn participate_in_competition() {
+    task_println!("Participating in competition.");
+
+    // go to competition page
+    click_scaled(380, 890, get_config().wait_time);
+    click_scaled(381, 683, get_config().wait_time_long);
+}
+
 pub fn do_capsule_toys() {
+    task_println!("Doing capsule toys.");
     /*
     492 720
     2s
@@ -57,6 +88,7 @@ pub fn do_capsule_toys() {
 }
 
 pub fn buy_something_in_coin_shop() {
+    task_println!("Buying something in coin shop.");
     /*
     492 720
     2s
@@ -78,6 +110,7 @@ pub fn buy_something_in_coin_shop() {
 }
 
 pub fn get_task_rewards() {
+    task_println!("Getting task rewards.");
     /*
     get_task_rewards()
     501 438
@@ -100,6 +133,7 @@ pub fn get_task_rewards() {
 }
 
 pub fn get_pass_rewards() {
+    task_println!("Getting pass rewards.");
     /*
     492 616
     2s
@@ -118,6 +152,7 @@ pub fn get_pass_rewards() {
 }
 
 pub fn strength_support_card() {
+    task_println!("Strength support card.");
     /*
     179 891
     1s
@@ -163,6 +198,7 @@ pub fn strength_support_card() {
 }
 
 pub fn do_job() {
+    task_println!("Doing job.");
     // collect
     click_scaled(53, 529, get_config().wait_time);
     click_scaled(286, 900, get_config().wait_time);
@@ -261,6 +297,16 @@ pub fn start_game() {
 
     click_scaled(290, 500, get_config().wait_time);
 
+    // need to add more click to skip
+    //   some animation of first time start every day
+    click_scaled(290, 500, get_config().wait_time);
+    click_scaled(290, 500, get_config().wait_time);
+    click_scaled(290, 500, get_config().wait_time);
+    click_scaled(290, 500, get_config().wait_time);
+    click_scaled(290, 500, get_config().wait_time);
+    click_scaled(290, 500, get_config().wait_time);
+    click_scaled(290, 500, get_config().wait_time);
+
     task_println!("Game started.");
 }
 
@@ -279,6 +325,10 @@ pub fn start_emulator() {
     sleep(wait_time);
 
     task_println!("{} seconds passed. Emulator is ready.", wait_time);
+
+    click(1320, 228, get_config().wait_time);
+
+    task_println!("Auto close ads.");
 }
 
 pub fn end_emulator() {
