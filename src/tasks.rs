@@ -20,22 +20,26 @@ pub fn do_daily_task() {
 
     try_to_participate_in_competition();
 
+    task_println!("=== Daily task finished. ===");
+
     // end_emulator();
 }
 
 pub fn try_to_participate_in_competition() {
     task_println!("Trying to join competition.");
 
-    click_scaled(380, 890, get_config().wait_time);
+    click_scaled(380, 890, 0.0);
 
     // user enter y/[n] to continue
+    task_println!("Do you want to join competition? y/[n]");
+    println!("Waiting for your input: ");
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();
     let input = input.trim();
 
     click_scaled(277, 905, get_config().wait_time);
 
-    if input == "y" {
+    if input == "y" || input == "yes" {
         task_println!("Joining competition.");
         participate_in_competition();
     } else {
@@ -49,6 +53,35 @@ pub fn participate_in_competition() {
     // go to competition page
     click_scaled(380, 890, get_config().wait_time);
     click_scaled(381, 683, get_config().wait_time_long);
+
+    task_println!("Preparing to participate in competition for {} rounds.", get_config().competition_rounds);
+    for _ in 0..get_config().competition_rounds {
+        participate_in_competition_single_round();
+    }
+    task_println!("Competition finished.");
+
+    back_to_main_menu();
+}
+
+fn participate_in_competition_single_round() {
+    task_println!("Participating in competition single round.");
+
+    // select player
+    click_scaled(307, 816, get_config().wait_time);
+
+    // start competition and skip
+    click_scaled(280, 840, 7.0);
+    click_scaled(458, 814, 7.0);
+    click_scaled(282, 812, get_config().wait_time);
+
+    // skip animation
+    click_scaled(275, 652, get_config().wait_time);
+    click_scaled(275, 652, get_config().wait_time);
+
+    // get rewards
+    click_scaled(283, 900, 5.0);
+    click_scaled(283, 900, get_config().wait_time);
+    click_scaled(283, 900, 5.0);
 }
 
 pub fn do_capsule_toys() {

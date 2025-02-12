@@ -19,6 +19,8 @@ pub struct Config {
 
     pub scale_x: f64,
     pub scale_y: f64,
+
+    pub competition_rounds: u64,
 }
 
 const ENABLE_SAVE_CONFIG: bool = false;
@@ -39,6 +41,8 @@ impl Default for Config {
 
             scale_x: 1.94,
             scale_y: 1.94,
+
+            competition_rounds: 5,
         }
     }
 }
