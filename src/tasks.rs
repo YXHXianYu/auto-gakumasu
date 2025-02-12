@@ -1,4 +1,4 @@
-use std::io;
+use std::io::{self, Read};
 use crate::prelude::*;
 use crate::task_println;
 
@@ -21,6 +21,8 @@ pub fn do_daily_task() {
     try_to_participate_in_competition();
 
     task_println!("=== Daily task finished. ===");
+    println!("Press any key to continue...");
+    let _ = io::stdin().read_exact(&mut [0u8]).unwrap();
 
     // end_emulator();
 }
