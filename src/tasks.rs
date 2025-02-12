@@ -1,12 +1,24 @@
 use std::io::{self, Read};
 use crate::prelude::*;
-use crate::task_println;
+use chrono::Local;
+use crate::{task_println, welcome_println};
 
-pub fn daily_task() {
+pub fn work() {
+    welcome_println!("Welcome to auto-gakumasu!");
+
     do_daily_task();
+
+    println!("Press any key to continue...");
+    let _ = io::stdin().read_exact(&mut [0u8]).unwrap();
 }
 
 pub fn do_daily_task() {
+    if check_if_executed_today() {
+        task_println!("Today's task has been executed. Skip.");
+        return;
+    }
+    task_println!("Today's task has not been executed. Start.");
+
     start_emulator();
     start_game();
 
@@ -20,11 +32,33 @@ pub fn do_daily_task() {
 
     try_to_participate_in_competition();
 
-    task_println!("=== Daily task finished. ===");
-    println!("Press any key to continue...");
-    let _ = io::stdin().read_exact(&mut [0u8]).unwrap();
+    update_record_of_execution();
+
+    task_println!("Daily task finished.");
 
     // end_emulator();
+}
+
+fn check_if_executed_today() -> bool {
+    let config = get_config();
+    let today = Local::now().date_naive().to_string();
+    let record_of_execution = config.record_of_execution.clone();
+
+    if record_of_execution.is_empty() {
+        return false;
+    } else if record_of_execution.last().unwrap() == &today {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+fn update_record_of_execution() {
+    task_println!("Updating record of execution.");
+    let today = Local::now().date_naive().to_string();
+    let mut config = get_config();
+    config.record_of_execution.push(today);
+    Config::update(config).unwrap();
 }
 
 pub fn try_to_participate_in_competition() {

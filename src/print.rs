@@ -22,6 +22,14 @@ macro_rules! task_println {
     }};
 }
 
+// welcome <=> magenta
+#[macro_export]
+macro_rules! welcome_println {
+    ($($arg:tt)*) => {{
+        ::color_print::cprintln!("<m>[Welcome]</m> {}", format!($($arg)*))
+    }};
+}
+
 // error <=> red
 #[macro_export]
 macro_rules! error_println {

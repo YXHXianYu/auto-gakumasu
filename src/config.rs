@@ -21,9 +21,11 @@ pub struct Config {
     pub scale_y: f64,
 
     pub competition_rounds: u64,
+
+    pub record_of_execution: Vec<String>,
 }
 
-const ENABLE_SAVE_CONFIG: bool = false;
+const ENABLE_SAVE_CONFIG: bool = true;
 
 impl Default for Config {
     fn default() -> Self {
@@ -43,6 +45,7 @@ impl Default for Config {
             scale_y: 1.94,
 
             competition_rounds: 5,
+            record_of_execution: vec![],
         }
     }
 }
