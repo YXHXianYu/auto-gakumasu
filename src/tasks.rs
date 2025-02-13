@@ -32,6 +32,8 @@ pub fn do_daily_task() {
 
     try_to_participate_in_competition();
 
+    collect_club_rewards();
+
     update_record_of_execution();
 
     task_println!("Daily task finished.");
@@ -61,21 +63,52 @@ fn update_record_of_execution() {
     Config::update(config).unwrap();
 }
 
+pub fn get_input_from_stdin() -> String {
+    println!("Waiting for your input: ");
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    input.trim().to_string()
+}
+
+pub fn collect_club_rewards() {
+    task_println!("Trying to get club rewards.");
+
+    click_scaled(505, 939, get_config().wait_time);
+    click_scaled(467, 305, get_config().wait_time);
+
+    // collect club rewards
+    click_scaled(320, 915, get_config().wait_time);
+
+    // request new club rewards
+    click_scaled(285, 839, get_config().wait_time);
+    // === select LuoJi Yellow Book ===
+    click_scaled(210, 500, get_config().wait_time);
+    // click confirm
+    click_scaled(390, 900, get_config().wait_time);
+    click_scaled(390, 900, get_config().wait_time);
+
+    // give others club rewards
+    for _ in 0..5 {
+        click_scaled(447, 733, get_config().wait_time);
+        click_scaled(390, 918, get_config().wait_time);
+        click_scaled(527,663, get_config().wait_time);
+    }
+
+    back_to_main_menu();
+}
+
 pub fn try_to_participate_in_competition() {
     task_println!("Trying to join competition.");
 
     click_scaled(380, 890, 0.0);
 
-    // user enter y/[n] to continue
-    task_println!("Do you want to join competition? y/[n]");
-    println!("Waiting for your input: ");
-    let mut input = String::new();
-    io::stdin().read_line(&mut input).unwrap();
-    let input = input.trim();
+    task_println!("Do you want to join competition?");
+    task_println!("Please `enter` or input `y`/`yes` to continue, or input other to skip.");
+    let input = get_input_from_stdin();
 
     click_scaled(277, 905, get_config().wait_time);
 
-    if input == "y" || input == "yes" {
+    if input == "y" || input == "yes" || input == "" {
         task_println!("Joining competition.");
         participate_in_competition();
     } else {
@@ -337,7 +370,7 @@ pub fn collect_coin() {
 
 pub fn back_to_main_menu() {
     task_println!("Back to main menu.");
-    click_scaled(65, 942, get_config().wait_time);
+    click_scaled(93, 958, get_config().wait_time);
 }
 
 pub fn start_game() {
