@@ -32,6 +32,8 @@ pub fn do_daily_task() {
 
     try_to_participate_in_competition();
 
+    try_to_buy_something_in_ap_shop();
+
     collect_club_rewards();
 
     update_record_of_execution();
@@ -103,7 +105,7 @@ pub fn try_to_participate_in_competition() {
     click_scaled(380, 890, 0.0);
 
     task_println!("Do you want to join competition?");
-    task_println!("Please `enter` or input `y`/`yes` to continue, or input other to skip.");
+    task_println!("Press `enter` or input `y`/`yes` to continue, or input other to skip.");
     let input = get_input_from_stdin();
 
     click_scaled(277, 905, get_config().wait_time);
@@ -155,26 +157,7 @@ fn participate_in_competition_single_round() {
 
 pub fn do_capsule_toys() {
     task_println!("Doing capsule toys.");
-    /*
-    492 720
-    2s
-    416 645
-    2s
 
-    282 854
-    1s
-    364 694 to 170 695
-    1s
-    453 695
-    1s
-
-    390 900
-    1s
-    283 900
-    1s
-
-    call back_to_main()
-     */
     click_scaled(492, 720, get_config().wait_time);
     click_scaled(416, 645, get_config().wait_time);
 
@@ -189,19 +172,58 @@ pub fn do_capsule_toys() {
 
 }
 
+pub fn try_to_buy_something_in_ap_shop() {
+    task_println!("Trying to buy something in AP shop.");
+
+    println!("Do you want to buy something in AP shop?");
+    println!("Press `enter` to skip! Input `y`/`yes` to continue, or input other to skip.");
+    let input = get_input_from_stdin();
+
+    if input == "y" || input == "yes" {
+        task_println!("Buying something in AP shop.");
+        buy_something_in_ap_shop();
+    } else {
+        task_println!("Skip buying something in AP shop.");
+    }
+}
+
+pub fn buy_something_in_ap_shop() {
+    task_println!("Buying something in AP shop.");
+
+    // go to AP shop
+    click_scaled(490, 720, 3.0);
+    click_scaled(155, 740, 3.0);
+    click_scaled(400, 847, get_config().wait_time);
+
+    // buy 再生成
+    for _ in 0..2 {
+        click_scaled(474, 319, get_config().wait_time_short);
+        click_scaled(392, 916, get_config().wait_time_short);
+    }
+
+    // buy 再挑战
+    for _ in 0..2 {
+        click_scaled(345, 317, get_config().wait_time_short);
+        click_scaled(392, 916, get_config().wait_time_short);
+    }
+
+    // buy 笔记数量提升
+    for _ in 0..2 {
+        click_scaled(212, 317, get_config().wait_time_short);
+        click_scaled(392, 916, get_config().wait_time_short);
+    }
+
+    // buy 支援强化Pt提升
+    for _ in 0..2 {
+        click_scaled(78, 315, get_config().wait_time_short);
+        click_scaled(392, 916, get_config().wait_time_short);
+    }
+
+    back_to_main_menu();
+}
+
 pub fn buy_something_in_coin_shop() {
     task_println!("Buying something in coin shop.");
-    /*
-    492 720
-    2s
-    157 736
-    2s
-    78 319
-    1s
-    400 900
-    1s
-    call back_to_main()
-     */
 
     click_scaled(492, 720, get_config().wait_time);
     click_scaled(157, 736, get_config().wait_time);
@@ -213,18 +235,6 @@ pub fn buy_something_in_coin_shop() {
 
 pub fn get_task_rewards() {
     task_println!("Getting task rewards.");
-    /*
-    get_task_rewards()
-    501 438
-    2s
-    288 848
-    2s
-    278 898
-    1s
-    278 898
-    1s
-    call back_to_main()
-     */
 
     click_scaled(501, 438, get_config().wait_time);
     click_scaled(288, 848, get_config().wait_time);
@@ -236,15 +246,6 @@ pub fn get_task_rewards() {
 
 pub fn get_pass_rewards() {
     task_println!("Getting pass rewards.");
-    /*
-    492 616
-    2s
-    280 837
-    2s
-    280 900
-    1s
-    call back_to_main()
-    */
 
     click_scaled(492, 616, get_config().wait_time);
     click_scaled(280, 837, get_config().wait_time);
@@ -255,34 +256,6 @@ pub fn get_pass_rewards() {
 
 pub fn strength_support_card() {
     task_println!("Strength support card.");
-    /*
-    179 891
-    1s
-    269 722
-    1s
-
-    279 661 to 279 418
-    1s
-    279 661 to 279 418
-    1s
-    279 661 to 279 418
-    1s
-    279 661 to 279 418
-    1s
-    279 661 to 279 418
-    1s
-
-    105 338
-    1s
-    105 338
-    1s
-    171 842
-    1s
-    400 900
-    1s
-
-    call back_to_main()
-     */
 
     click_scaled(179, 891, get_config().wait_time);
     click_scaled(269, 722, get_config().wait_time);
@@ -309,23 +282,7 @@ pub fn do_job() {
     click_scaled(286, 900, get_config().wait_time);
     click_scaled(286, 900, get_config().wait_time);
 
-    /*
-    MARK: new job 1
-    145 534
-    1s
-    188 616
-    1s
-    290 845
-    1s
-    400 900
-    1s
-    290 845
-    1s
-    400 900
-    1s
-    290 845
-    1s
-     */
+    // MARK: new job 1
     click_scaled(145, 534, get_config().wait_time);
     click_scaled(188, 616, get_config().wait_time);
     click_scaled(290, 845, get_config().wait_time);
@@ -334,23 +291,7 @@ pub fn do_job() {
     click_scaled(400, 900, get_config().wait_time);
     click_scaled(290, 845, get_config().wait_time);
 
-    /*
-    MARK: new job 2
-    416 517
-    1s
-    422 732
-    1s
-    290 845
-    1s
-    400 900
-    1s
-    290 845
-    1s
-    400 900
-    1s
-    290 845
-    1s
-     */
+    // MARK: new job 2
     click_scaled(416, 517, get_config().wait_time);
     click_scaled(422, 732, get_config().wait_time);
     click_scaled(290, 845, get_config().wait_time);

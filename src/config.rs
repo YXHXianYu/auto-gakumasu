@@ -12,6 +12,7 @@ pub struct Config {
 
     pub wait_time_long: f64,
     pub wait_time: f64,
+    pub wait_time_short: f64,
 
     pub wait_time_start_emulator: f64,
     pub wait_time_start_game_1: f64,
@@ -36,6 +37,7 @@ impl Default for Config {
 
             wait_time_long: 5.0,
             wait_time: 2.0,
+            wait_time_short: 1.0,
 
             wait_time_start_emulator: 40.0,
             wait_time_start_game_1: 40.0,
