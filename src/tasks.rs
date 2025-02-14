@@ -78,6 +78,8 @@ pub fn collect_club_rewards() {
     click_scaled(505, 939, get_config().wait_time);
     click_scaled(467, 305, get_config().wait_time);
 
+    click_scaled(290, 908, get_config().wait_time);
+
     // collect club rewards
     click_scaled(320, 915, get_config().wait_time);
 
@@ -141,13 +143,13 @@ fn participate_in_competition_single_round() {
     click_scaled(307, 816, get_config().wait_time);
 
     // start competition and skip
-    click_scaled(280, 840, 7.0);
-    click_scaled(458, 814, 7.0);
-    click_scaled(282, 812, get_config().wait_time);
+    click_scaled(280, 840, 8.0);
+    click_scaled(458, 814, 8.0);
+    click_scaled(282, 812, 3.0);
 
     // skip animation
-    click_scaled(275, 652, get_config().wait_time);
-    click_scaled(275, 652, get_config().wait_time);
+    click_scaled(275, 652, 3.0);
+    click_scaled(275, 652, 3.0);
 
     // get rewards
     click_scaled(283, 900, 5.0);
@@ -342,13 +344,19 @@ pub fn start_game() {
 
     // need to add more click to skip
     //   some animation of first time start every day
-    click_scaled(290, 500, get_config().wait_time);
-    click_scaled(290, 500, get_config().wait_time);
-    click_scaled(290, 500, get_config().wait_time);
-    click_scaled(290, 500, get_config().wait_time);
-    click_scaled(290, 500, get_config().wait_time);
-    click_scaled(290, 500, get_config().wait_time);
-    click_scaled(290, 500, get_config().wait_time);
+    click_scaled(290, 500, get_config().wait_time_short);
+    click_scaled(290, 500, get_config().wait_time_short);
+    click_scaled(290, 500, get_config().wait_time_short);
+    click_scaled(290, 500, get_config().wait_time_short);
+    click_scaled(290, 500, get_config().wait_time_short);
+    click_scaled(290, 500, get_config().wait_time_short);
+    click_scaled(290, 500, get_config().wait_time_short);
+
+    // skip new activity
+    click_scaled(276, 921, get_config().wait_time_short);
+    click_scaled(276, 921, get_config().wait_time_short);
+    click_scaled(276, 921, get_config().wait_time_short);
+    click_scaled(276, 921, get_config().wait_time_short);
 
     task_println!("Game started.");
 }
