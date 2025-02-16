@@ -2,7 +2,7 @@
 #[macro_export]
 macro_rules! command_println {
     ($($arg:tt)*) => {{
-        ::color_print::cprintln!("<y>[Command]</y> {}", format!($($arg)*))
+        ::color_print::cprintln!("<y>[Command]      </y>: {}", format!($($arg)*))
     }};
 }
 
@@ -10,7 +10,7 @@ macro_rules! command_println {
 #[macro_export]
 macro_rules! adb_println {
     ($($arg:tt)*) => {{
-        ::color_print::cprintln!("<b>[ADB]    </b> {}", format!($($arg)*))
+        ::color_print::cprintln!("<b>[ADB Wrapper]  </b>: {}", format!($($arg)*))
     }};
 }
 
@@ -18,7 +18,7 @@ macro_rules! adb_println {
 #[macro_export]
 macro_rules! task_println {
     ($($arg:tt)*) => {{
-        ::color_print::cprintln!("<g>[Task]   </g> {}", format!($($arg)*))
+        ::color_print::cprintln!("<g>[Task]         </g>: {}", format!($($arg)*))
     }};
 }
 
@@ -26,7 +26,7 @@ macro_rules! task_println {
 #[macro_export]
 macro_rules! welcome_println {
     ($($arg:tt)*) => {{
-        ::color_print::cprintln!("<m>[Welcome]</m> {}", format!($($arg)*))
+        ::color_print::cprintln!("<m>[Welcome]      </m>: {}", format!($($arg)*))
     }};
 }
 
@@ -34,6 +34,6 @@ macro_rules! welcome_println {
 #[macro_export]
 macro_rules! error_println {
     ($($arg:tt)*) => {{
-        ::color_print::cprintln!("<r>[Error]  </r> {}", format!($($arg)*))
+        ::color_print::cprintln!("<r>[Error]        </r>: {}", format!($($arg)*))
     }};
 }

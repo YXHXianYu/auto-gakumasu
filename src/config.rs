@@ -33,13 +33,13 @@ impl Default for Config {
         Config {
             host: "127.0.0.1:5555".to_string(),
             emulator_name: "dnplayer.exe".to_string(),
-            emulator_path: r"E:/Programs/leidian/LDPlayerVK/".to_string(),
+            emulator_path: r"E:/Programs/leidian/LDPlayerVK".to_string(),
 
             wait_time_long: 5.0,
             wait_time: 2.0,
             wait_time_short: 1.0,
 
-            wait_time_start_emulator: 40.0,
+            wait_time_start_emulator: 30.0,
             wait_time_start_game_1: 40.0,
             wait_time_start_game_2: 30.0,
 
