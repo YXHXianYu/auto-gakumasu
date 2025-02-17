@@ -307,7 +307,8 @@ impl AahWrapper {
         task_println!("Button 1 clicked.");
 
         // click the button 2
-        self.click(886, 687, get_config().wait_time_long);
+        // self.click(886, 687, get_config().wait_time_long);
+        self.click_scaled(467, 187, get_config().wait_time_long);
         task_println!("Button 2 clicked.");
 
         // wait for gakumasu start & click any position
