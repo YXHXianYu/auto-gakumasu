@@ -311,6 +311,12 @@ impl AahWrapper {
         self.click_scaled(467, 187, get_config().wait_time_long);
         task_println!("Button 2 clicked.");
 
+        self.click_scaled(383, 587, get_config().wait_time_long);
+        task_println!("更新汉化包");
+
+        self.click_scaled(467, 187, get_config().wait_time_long);
+        task_println!("Button 2 clicked.");
+
         // wait for gakumasu start & click any position
         task_println!("Waiting for game start...");
         sleep(get_config().wait_time_start_game_1);
