@@ -4,6 +4,7 @@ pub mod config;
 pub mod command;
 pub mod tasks;
 pub mod aah_wrapper;
+pub mod aah_cv_wrapper;
 
 pub mod prelude {
     pub use super::sleep::*;
@@ -11,4 +12,5 @@ pub mod prelude {
     pub use super::command::*;
     pub use super::tasks::*;
     pub use super::aah_wrapper::*;
+    pub use super::aah_cv_wrapper::*;
 }

@@ -27,3 +27,5 @@ Cargo.lock
 # Added by yxh
 
 config.json
+tmp.png
+res.png

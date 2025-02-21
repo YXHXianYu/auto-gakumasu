@@ -1,7 +1,9 @@
 use std::{path::Path, sync::Arc};
 use aah_core::{resource::Resource, AAH};
+use anyhow::{anyhow, Error};
+use image::DynamicImage;
 use std::time::Duration;
-use crate::{adb_println, config::Config, sleep::sleep, task_println};
+use crate::{adb_println, task_println, prelude::*};
 
 pub struct AahWrapper {
     pub aah: AAH,
@@ -68,5 +70,70 @@ impl AahWrapper {
         }
         
         sleep(wait_time);
-    }    
+    }
+
+    pub fn screencap(&self) -> Result<DynamicImage, anyhow::Error> {
+        match self.aah.screencap() {
+            Ok(img) => Ok(img),
+            Err(e) => Err(anyhow::anyhow!("Failed to capture screen: {:?}", e))
+        }
+    }
+
+    pub fn find(&self, target: DynamicImage) -> Result<(i32, i32, f32), Error> {
+        let pic = self.screencap().unwrap();
+        match template_match(&pic, &target) {
+            Some((x, y, v)) => Ok((x, y, v)),
+            None => Err(anyhow!("Not found target image!")),
+        }
+    }
+
+    pub fn find_and_click(&self, str: &str) -> Result<(), Error> {
+        let target = open_image(str)?;
+        let ans = self.find(target);
+        match ans {
+            Ok((x, y, _)) => {
+                adb_println!("Clicking at ({}, {}) for \"{}\"", x, y, str);
+                self.click(x as u32, y as u32, 0.0);
+                Ok(())
+            }
+            Err(e) => Err(e)
+        }
+    }
+
+    pub fn find_and_click_until(&self, str: &str, wait_time: f64, retry_times: i32) -> Result<(), Error> {
+        for idx in 0..retry_times {
+            adb_println!("Trying to find target image: \"{}\" for the {}-th time", str, idx + 1);
+            if self.find_and_click(str).is_ok() {
+                adb_println!("Found target image: \"{}\"", str);
+                return Ok(());
+            }
+            sleep(wait_time);
+        }
+        adb_println!("Not found target image: \"{}\"", str);
+        Err(anyhow!("Not found target image!"))
+    }
+    
+    pub fn find_and_click_until_default(&self, str: &str) -> Result<(), Error> {
+        self.find_and_click_until(str, get_config().retry_wait_time, get_config().retry_max_times)
+    }
+
+    pub fn find_and_click_util_and_sleep(&self, str: &str, wait_time: f64, retry_times: i32, sleep_time: f64) -> Result<(), Error> {
+        self.find_and_click_until(str, wait_time, retry_times)?;
+        sleep(sleep_time);
+        Ok(())
+    }
+
+    pub fn find_and_click_until_default_and_sleep(&self, str: &str, sleep_time: f64) -> Result<(), Error> {
+        self.find_and_click_until(str, get_config().retry_wait_time, get_config().retry_max_times)?;
+        sleep(sleep_time);
+        Ok(())
+    }
+
+    pub fn fcus(&self, str: &str, wait_time: f64, retry_times: i32, sleep_time: f64) -> Result<(), Error> {
+        self.find_and_click_util_and_sleep(str, wait_time, retry_times, sleep_time)
+    }
+
+    pub fn fcuds(&self, str: &str, sleep_time: f64) -> Result<(), Error> {
+        self.find_and_click_until_default_and_sleep(str, sleep_time)
+    }
 }

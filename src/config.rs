@@ -18,6 +18,9 @@ pub struct Config {
     pub wait_time_start_game_1: f64,
     pub wait_time_start_game_2: f64,
 
+    pub retry_wait_time: f64,
+    pub retry_max_times: i32,
+
     pub scale_x: f64,
     pub scale_y: f64,
 
@@ -42,6 +45,9 @@ impl Default for Config {
             wait_time_start_emulator: 30.0,
             wait_time_start_game_1: 40.0,
             wait_time_start_game_2: 30.0,
+
+            retry_wait_time: 5.0,
+            retry_max_times: 3,
 
             scale_x: 1.94,
             scale_y: 1.94,

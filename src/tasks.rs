@@ -299,22 +299,25 @@ impl AahWrapper {
         task_println!("Starting kuyo & game.");
 
         // start kuyo
-        self.click(504, 249, get_config().wait_time_long);
+        self.fcuds("kuyo/kuyo.png", get_config().wait_time_long).unwrap();
         task_println!("Kuyo started.");
 
         // click the button 1
-        self.click(540, 1900, get_config().wait_time_long);
+        self.fcuds("kuyo/tab_3.png", get_config().wait_time_long).unwrap();
         task_println!("Button 1 clicked.");
 
         // click the button 2
         // self.click(886, 687, get_config().wait_time_long);
-        self.click_scaled(467, 187, get_config().wait_time_long);
+        self.fcuds("kuyo/k_space_start.png", get_config().wait_time_long).unwrap();
         task_println!("Button 2 clicked.");
+
+        self.click_scaled(386, 586, get_config().wait_time_long);
+        task_println!("更新游戏版本");
 
         self.click_scaled(383, 587, get_config().wait_time_long);
         task_println!("更新汉化包");
 
-        self.click_scaled(467, 187, get_config().wait_time_long);
+        self.fcuds("kuyo/k_space_start.png", get_config().wait_time_long).unwrap();
         task_println!("Button 2 clicked.");
 
         // wait for gakumasu start & click any position
