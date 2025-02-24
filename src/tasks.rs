@@ -7,9 +7,16 @@ pub fn work() {
     welcome_println!("Welcome to auto-gakumasu!");
 
     do_daily_task();
+    // test();
 
     println!("Press any key to continue...");
     let _ = io::stdin().read_exact(&mut [0u8]).unwrap();
+}
+
+#[allow(dead_code)]
+pub fn test() {
+    let aah_wrapper = AahWrapper::new(get_config().clone());
+    aah_wrapper.buy_something_in_coin_shop();
 }
 
 pub fn do_daily_task() {
@@ -29,14 +36,19 @@ pub fn do_daily_task() {
     aah_wrapper.do_job();
     aah_wrapper.strength_support_card();
     aah_wrapper.do_capsule_toys();
+    aah_wrapper.do_capsule_toys();
     aah_wrapper.buy_something_in_coin_shop();
     aah_wrapper.get_task_rewards();
+    aah_wrapper.get_task_rewards();
+    aah_wrapper.get_task_rewards();
     aah_wrapper.get_pass_rewards();
+    aah_wrapper.collect_mail_rewards();
+
+    // aah_wrapper.try_to_buy_something_in_ap_shop();
+    aah_wrapper.buy_something_in_ap_shop();
+    aah_wrapper.collect_club_rewards();
 
     aah_wrapper.try_to_participate_in_competition();
-    aah_wrapper.try_to_buy_something_in_ap_shop();
-
-    aah_wrapper.collect_club_rewards();
 
     update_record_of_execution();
 
@@ -46,6 +58,17 @@ pub fn do_daily_task() {
 }
 
 impl AahWrapper {
+
+    fn collect_mail_rewards(&self) {
+        task_println!("Collecting mail rewards.");
+
+        self.click_scaled(502, 348, get_config().wait_time);
+        self.click_scaled(284, 839, get_config().wait_time);
+        self.click_scaled(306, 910, get_config().wait_time);
+
+        self.back_to_main_menu();
+    }
+
     fn collect_club_rewards(&self) {
         task_println!("Trying to get club rewards.");
 
@@ -148,6 +171,7 @@ impl AahWrapper {
 
     }
 
+    #[allow(dead_code)]
     fn try_to_buy_something_in_ap_shop(&self) {
         task_println!("Trying to buy something in AP shop.");
 
@@ -199,12 +223,31 @@ impl AahWrapper {
     }
 
     fn buy_something_in_coin_shop(&self) {
+        const BUY_CHARACTER_THRESHOLD: f32 = 0.0004;
+
         task_println!("Buying something in coin shop.");
 
         self.click_scaled(492, 720, get_config().wait_time);
         self.click_scaled(157, 736, get_config().wait_time);
         self.click_scaled(78, 319, get_config().wait_time);
         self.click_scaled(400, 900, get_config().wait_time);
+
+        self.swipe_scaled(279, 747, 279, 418, get_config().wait_time);
+        self.swipe_scaled(279, 747, 279, 418, get_config().wait_time);
+
+        for _ in 0..3 {
+            match self.find(open_image("coin_shop/12000.png").unwrap()) {
+                Ok((x, y, v)) => {
+                    if v > BUY_CHARACTER_THRESHOLD { continue; }
+                    self.click(x as u32, y as u32, get_config().wait_time);
+                    self.click_scaled(400, 900, get_config().wait_time);
+                }
+                Err(_) => {
+                    task_println!("Not found 12000 coin.");
+                    continue;
+                }
+            }
+        }
 
         self.back_to_main_menu();
     }

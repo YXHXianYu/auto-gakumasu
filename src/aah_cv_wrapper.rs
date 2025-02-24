@@ -20,6 +20,13 @@ pub fn template_match(image: &DynamicImage, template: &DynamicImage) -> Option<(
         0.2
     );
 
+    // if matches length > 10, resize to 10
+    let matches = if matches.len() > 10 {
+        matches.into_iter().take(10).collect()
+    } else {
+        matches
+    };
+
     save_float_buffer_as_png(&res, "res.png").unwrap();
     println!("Matches: {:?}", matches);
 
