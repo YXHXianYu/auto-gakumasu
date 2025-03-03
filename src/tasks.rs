@@ -44,11 +44,10 @@ pub fn do_daily_task() {
     aah_wrapper.get_pass_rewards();
     aah_wrapper.collect_mail_rewards();
 
-    // aah_wrapper.try_to_buy_something_in_ap_shop();
     aah_wrapper.buy_something_in_ap_shop();
     aah_wrapper.collect_club_rewards();
 
-    aah_wrapper.try_to_participate_in_competition();
+    aah_wrapper.automatically_check_and_participate_in_competition();
 
     update_record_of_execution();
 
@@ -98,6 +97,7 @@ impl AahWrapper {
         self.back_to_main_menu();
     }
 
+    #[allow(dead_code)]
     fn try_to_participate_in_competition(&self) {
         task_println!("Trying to join competition.");
 
@@ -110,6 +110,34 @@ impl AahWrapper {
         self.click_scaled(277, 905, get_config().wait_time);
 
         if input == "y" || input == "yes" || input == "" {
+            task_println!("Joining competition.");
+            self.participate_in_competition();
+        } else {
+            task_println!("Skip joining competition.");
+        }
+    }
+
+    #[allow(dead_code)]
+    fn automatically_check_and_participate_in_competition(&self) {
+        const COMPETITION_HAS_COMPETITION_THRESHOLD: f32 = 1e-3;
+
+        task_println!("Trying to join competition.");
+
+        self.click_scaled(380, 890, get_config().wait_time);
+
+        let result = match self.find(open_image("competition/HasCompetition.png").unwrap()) {
+            Ok((_, _, v)) => {
+                v < COMPETITION_HAS_COMPETITION_THRESHOLD
+            }
+            Err(_) => {
+                task_println!("No competition found.");
+                false
+            }
+        };
+
+        self.click_scaled(277, 905, get_config().wait_time);
+
+        if result {
             task_println!("Joining competition.");
             self.participate_in_competition();
         } else {
