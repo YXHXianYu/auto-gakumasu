@@ -388,7 +388,7 @@ impl AahWrapper {
         self.click_scaled(383, 587, get_config().wait_time_long);
         task_println!("更新汉化包");
 
-        self.fcuds("kuyo/k_space_start.png", get_config().wait_time_long).unwrap();
+        let _ = self.fcus("kuyo/k_space_start.png", 0.0, 1, get_config().wait_time_long);
         task_println!("Button 2 clicked.");
 
         // wait for gakumasu start & click any position
